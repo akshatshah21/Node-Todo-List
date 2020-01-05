@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo List</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .completed {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body class="light-blue">
+    <div class="container">
+        <div class="center head white-text" style="height:200px">
+            <h1><%= userName %>'s Todo List</h1>
+        </div>
+        <div class="add-todo row white-text">
+            <input type="text" id="new-todo" name="new-todo" class="col s11 white-text" style="font-size: large;"
+                placeholder="Add todo" />
+            <button type="submit" id="add-btn"
+                class="blue darken-3 waves-effect waves-light btn btn-large btn-floating col">+</button>
+        </div>
+        <div class="todo-list">
+            <ul class="collection">
+                <% todoList.forEach((todo) => { %>
+                <li class="collection-item" id="<%= todo.id %>" >
+                    <label class="row">
+                        <input type="checkbox" class="col s1" onclick="toggleTodo(event)"
+                        <% if (todo.completed) { %>
+                             checked 
+                        <% } %>
+                        >
+                        <span class="col s10
+                        <% if(todo.completed) { %>
+                            completed
+                            grey-text
+                        <% } else { %>
+                            black-text
+                        <% } %>
+                        "
+                        ><%= todo.text %></span>
+                        <span><%= todo.timestamp %></span>
+                        <button class="del-btn btn btn-small btn-floating red right" type="submit" onclick="delTodo(event)">x</button>
+                    </label>
+                </li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+    </div>
+
+    <!-- <script src="../public/todoList.js"></script> -->
+    <!-- Find out why this doesn't work! -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+
+            sendRequest = (json) => {
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/todo', true);
+                console.log(`Ready state: ${xhr.readyState}`);
+                xhr.setRequestHeader('Content-type', 'application/json');
+                xhr.onload = () => {
+                    console.log(xhr.status);
+                    if(xhr.status == 200) {
+                        location.reload();
+                    }
+                    else {
+                        console.log(xhr.status);
+                    }
+                }
+                xhr.send(JSON.stringify(json));
+
+            }
+
+            document.getElementById('add-btn').addEventListener('click', () => {
+                json = newTodo();
+                sendRequest(json);
+                document.getElementById('new-todo').value = '';
+            });
+
+            toggleTodo = (e) => {
+                let id = e.target.parentNode.parentNode.id;
+                json = {
+                    type: 'toggle',
+                    id:id
+                };
+                sendRequest(json);
+            }
+
+            delTodo = (e) => {
+                let id = e.target.parentNode.parentNode.id;
+                json = {
+                    type: 'del',
+                    id: id
+                };
+                sendRequest(json);
+            }
+
+            newTodo = () => {
+                let text = document.getElementById('new-todo').value;
+                let timestamp = (new Date()).toDateString();
+                json = {
+                    type:'add',
+                    todo: {
+                        text: text,
+                        timestamp: timestamp,
+                        completed: false
+                    }
+                };
+                return json;
+            }
+        });
+    </script>
+</body>
+
+</html>
