@@ -17,23 +17,25 @@
 
 <body class="light-blue">
     <div class="container">
-        <div class="center head white-text" style="height:200px">
+        <div class="center head white-text" style="height:100px">
             <h1><%= userName %>'s Todo List</h1>
         </div>
         <div class="add-todo row white-text">
+			<form>
             <input type="text" id="new-todo" name="new-todo" class="col s11 white-text" style="font-size: large;"
                 placeholder="Add todo" />
             <button type="submit" id="add-btn"
                 class="blue darken-3 waves-effect waves-light btn btn-large btn-floating col">+</button>
+			</form>
         </div>
         <div class="todo-list">
             <ul class="collection">
                 <% todoList.forEach((todo) => { %>
                 <li class="collection-item" id="<%= todo.id %>" >
                     <label class="row">
-                        <input type="checkbox" class="col s1" onclick="toggleTodo(event)"
+                        <input type="checkbox" class="col s1 filled-in" onclick="toggleTodo(event)"
                         <% if (todo.completed) { %>
-                             checked 
+                             checked="checked"
                         <% } %>
                         >
                         <span class="col s10
@@ -55,69 +57,8 @@
     </div>
     </div>
 
-    <!-- <script src="../public/todoList.js"></script> -->
-    <!-- Find out why this doesn't work! -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+    <script type="text/javascript" src="todoList.js"></script>
 
-
-            sendRequest = (json) => {
-                let xhr = new XMLHttpRequest();
-                xhr.open('POST', '/todo', true);
-                console.log(`Ready state: ${xhr.readyState}`);
-                xhr.setRequestHeader('Content-type', 'application/json');
-                xhr.onload = () => {
-                    console.log(xhr.status);
-                    if(xhr.status == 200) {
-                        location.reload();
-                    }
-                    else {
-                        console.log(xhr.status);
-                    }
-                }
-                xhr.send(JSON.stringify(json));
-
-            }
-
-            document.getElementById('add-btn').addEventListener('click', () => {
-                json = newTodo();
-                sendRequest(json);
-                document.getElementById('new-todo').value = '';
-            });
-
-            toggleTodo = (e) => {
-                let id = e.target.parentNode.parentNode.id;
-                json = {
-                    type: 'toggle',
-                    id:id
-                };
-                sendRequest(json);
-            }
-
-            delTodo = (e) => {
-                let id = e.target.parentNode.parentNode.id;
-                json = {
-                    type: 'del',
-                    id: id
-                };
-                sendRequest(json);
-            }
-
-            newTodo = () => {
-                let text = document.getElementById('new-todo').value;
-                let timestamp = (new Date()).toDateString();
-                json = {
-                    type:'add',
-                    todo: {
-                        text: text,
-                        timestamp: timestamp,
-                        completed: false
-                    }
-                };
-                return json;
-            }
-        });
-    </script>
 </body>
 
 </html>
