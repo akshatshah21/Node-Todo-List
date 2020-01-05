@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+	document.getElementById('new-todo').focus();
 
 	sendRequest = (json) => {
 		let xhr = new XMLHttpRequest();
@@ -19,8 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	}
 
-	document.getElementById('add-btn').addEventListener('click', () => {
+	document.getElementById('add-btn').addEventListener('click', (e) => {
+		e.preventDefault();
 		json = newTodo();
+		if(typeof json === 'undefined') {
+			M.toast({html:'Todo: Nothing?', classes:'light-blue lighten-3 black-text circular large'});
+			return;
+		}
+
+		console.log(json);
 		sendRequest(json);
 		document.getElementById('new-todo').value = '';
 	});
@@ -45,6 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	newTodo = () => {
 		let text = document.getElementById('new-todo').value;
+		if(text.trim() === '') {
+			console.log('Empty todo');
+			return;
+		}
 		let timestamp = (new Date()).toDateString();
 		json = {
 			type:'add',

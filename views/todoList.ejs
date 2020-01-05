@@ -15,16 +15,16 @@
     </style>
 </head>
 
-<body class="light-blue">
+<body class="light-blue lighten-1">
     <div class="container">
-        <div class="center head white-text" style="height:100px">
+        <div class="center head white-text" style="height:25%">
             <h1><%= userName %>'s Todo List</h1>
         </div>
         <div class="add-todo row white-text">
-			<form>
-            <input type="text" id="new-todo" name="new-todo" class="col s11 white-text" style="font-size: large;"
+			<form action="">
+            <input type="text" id="new-todo" name="new-todo" class="col s10 l11 white-text" style="font-size: large;"
                 placeholder="Add todo" />
-            <button type="submit" id="add-btn"
+            <button id="add-btn" style="font-size:25px;"
                 class="blue darken-3 waves-effect waves-light btn btn-large btn-floating col">+</button>
 			</form>
         </div>
@@ -33,12 +33,12 @@
                 <% todoList.forEach((todo) => { %>
                 <li class="collection-item" id="<%= todo.id %>" >
                     <label class="row">
-                        <input type="checkbox" class="col s1 filled-in" onclick="toggleTodo(event)"
+                        <input type="checkbox" class="col s1 l1 filled-in" onclick="toggleTodo(event)"
                         <% if (todo.completed) { %>
                              checked="checked"
                         <% } %>
                         >
-                        <span class="col s10
+                        <span class="col s8 l9
                         <% if(todo.completed) { %>
                             completed
                             grey-text
@@ -47,7 +47,7 @@
                         <% } %>
                         "
                         ><%= todo.text %></span>
-                        <span><%= todo.timestamp %></span>
+                        <span class="col s3 l2"><%= todo.timestamp %></span>
                         <button class="del-btn btn btn-small btn-floating red right" type="submit" onclick="delTodo(event)">x</button>
                     </label>
                 </li>
