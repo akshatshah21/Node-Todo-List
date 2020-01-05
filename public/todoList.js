@@ -68,4 +68,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		};
 		return json;
 	}
+	
 });
