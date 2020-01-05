@@ -1,12 +1,14 @@
 let uuid = require('uuid');
 let mongoose = require('mongoose');
+let mongodbURI = require('./mongodbURI');
+console.log(`URI: ${mongodbURI()}`);
 /*
 Example todo object:
 	{ id: 1, text: 'Complete NodeJS', timestamp: 'Jan 4, 2020', completed: false }
 */
 
 // Connect to database: (Replace the URI string with your own MongoDB URI)
-mongoose.connect('YOUR_MONGODB_URI');
+mongoose.connect(mongodbURI());
 
 let todoSchema = new mongoose.Schema({
 	id: String,
