@@ -1,2 +1,2 @@
 node_modules/
-controllers/mongodbURI.js
+config/mongodbURI.js

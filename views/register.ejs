@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Todo App-Register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body class="light-blue lighten-2 white-text">
+    <div class="container white">
+        <h1 class="black-text">Register</h1>
+        <div class="container">
+            <div class="row">
+                <form autocomplete="off" class="col s6" action="/users/register" method="POST">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input name="first_name" type="text" required
+                            <% if(typeof prevInput != 'undefined') { %>    
+                            value="<%= prevInput.first_name %>"
+                            <% } %>
+                            >
+                            <label for="first_name">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input name="last_name" type="text" required
+                            <% if(typeof prevInput != 'undefined') { %>    
+                                value="<%= prevInput.last_name %>"
+                                <% } %>
+                            >
+                            <label for="last_name">Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="email" type="email" class="validate" required
+                            <% if(typeof prevInput != 'undefined') { %>    
+                                value="<%= prevInput.email %>"
+                                <% } %>
+                            >
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="password" type="password" class="validate" required
+                            <% if(typeof prevInput != 'undefined') { %>    
+                                value="<%= prevInput.password %>"
+                                <% } %>
+                            >
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="password2" type="password" class="validate" required
+                            <% if(typeof prevInput != 'undefined') { %>    
+                                value="<%= prevInput.password2 %>"
+                                <% } %>
+                            >
+                            <label for="password">Confirm Password</label>
+                        </div>
+                    </div>
+                    <% if(typeof errors != 'undefined') { %>  
+                    <div class="error-msgs">
+                        <p class="red-text"><%= errors[0].msg %></p>
+                    </div>
+                    <% } %>
+                    <button type="submit" class="btn light-blue darken-3">Register</button>
+                    <br>
+                    <br>
+                </form>
+                <div class="col s6">
+                    <h5 class="black-text">Other sign-up options:</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

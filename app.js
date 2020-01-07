@@ -1,16 +1,72 @@
-let express = require('express');
-let ejs = require('ejs');
-let bodyParser = require('body-parser');
-let todoController = require('./controllers/todoController')
+const express = require('express');
+const ejs = require('ejs');
+const bodyParser = require('body-parser');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const mongoose = require('mongoose');
 
-let app = express()
-app.use(express.static(__dirname + '/public'));
+const todoRoutes = require('./routes/todoController');
+const userRoutes = require('./routes/userController');
+
+// Initialize app
+const app = express()
+
+// View engine
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Static Folder
+app.use(express.static(__dirname + '/public'));
+
+// Body-parser, cookie-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
-// Fire controllers
-todoController(app);
+// Express Session
+app.use(session({
+    secret:'secret',
+    saveUninitialized: true,
+    resave: true
+}));
+
+// Express Validator
+// ???
+
+// connect-flash
+// app.use(flash());
+
+
+app.use(flash());
+/* app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+}); */
+
+
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');  // Passport sets its own 'error' messages
+    next();
+}); 
+
+
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+// Routes
+// todoController(app);
+app.use('/todo', todoRoutes);
+// userController(app);
+app.use('/users', userRoutes);
 
 app.listen(5000, () => {
     console.log(`Listening on port 5000`);
