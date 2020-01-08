@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+	var elems = document.querySelectorAll('.sidenav');
+	var instances = M.Sidenav.init(elems);
 	document.getElementById('new-todo').focus();
 
 	sendRequest = (json) => {
@@ -68,5 +70,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		};
 		return json;
 	}
-	
+
 });

@@ -1,42 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Todo App-Login</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-</head>
-<body class="light-blue lighten-2 white-text">
+<div class="container white">
+    <h1 class="black-text">Login</h1>
+    <div class="container">
+        <div class="row">
+            <form autocomplete="off" action="/users/login" method="POST" class="col s6">
 
-	<div class="container white">
-		<h1 class="black-text">Login</h1>
-		<div class="container">
-			<div class="row">
-				<form autocomplete="off" action="/users/login" method="post" class="col s6">
+                <div class="input-field">
+                    <input type="email" name="email" class="validate" required>
+                    <label for="email">Email</label>
+                </div>
 
-						<div class="input-field">
-							<input type="email" name="email" id="email" class="validate" required>
-							<label for="email">Email</label>
-						</div>
+                <div class="input-field">
+                    <input type="password" name="password" required>
+                    <label for="password">Password</label>
+                </div>
 
-						<div class="input-field">
-							<input type="password" name="password" id="password" required>
-							<label for="password">Password</label>
-						</div>
+                <button class="btn light-blue darken-3" type="submit">Login</button>
+                <br>
+                <br>
+            </form>
+            <div class="col s6 black-text">
+                <h5>Other login options:</h5>
 
-						<button class="btn light-blue darken-3"type="submit">Login</button>
-						<br>
-						<br>
-				</form>
-				<div class="col s6 black-text">
-					<h5>Other login options:</h5>
-
-				</div>
-			</div>
-		</div>
-	</div>
-	
-</body>
-</html>
+            </div>
+        </div>
+    </div>
+</div>

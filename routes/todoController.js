@@ -9,7 +9,6 @@ Example todo object:
 	{ id: 1, text: 'Complete NodeJS', timestamp: 'Jan 4, 2020', completed: false }
 */
 
-
 // Get todos
 router.get('/', (req, res) => {
 	Todo.find({}, (err, data) => {

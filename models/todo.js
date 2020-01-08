@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const mongodbURI = require('../config/mongodbURI');
 
-    // Connect to database: (Add your URI string to ../config/mongodbURI.js)
-mongoose.connect(mongodbURI);
+ // Connect to database: (Add your URI string to ../config/mongodbURI.js)
+mongoose.connect(mongodbURI, {useNewUrlParser:true, useUnifiedTopology: true})
+    .then(() => console.log('Connected to MongoDB'))
+    .catch((err) => console.log(err));
 
 let todoSchema = new mongoose.Schema({
 	id: {

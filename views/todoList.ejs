@@ -1,64 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    .completed {
+        text-decoration: line-through;
+    }
+</style>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Todo List</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <style>
-        .completed {
-            text-decoration: line-through;
-        }
-    </style>
-</head>
-
-<body class="light-blue lighten-1">
-    <div class="container">
-        <div class="center head white-text" style="height:25%">
-            <h1><%= userName %>'s Todo List</h1>
-        </div>
-        <div class="add-todo row white-text">
-			<form action="" autocomplete="off">
-            <input type="text" id="new-todo" name="new-todo" class="col s10 l11 white-text" style="font-size: large;"
-                placeholder="Add todo" />
-            <button id="add-btn" style="font-size:25px;"
-                class="blue darken-3 waves-effect waves-light btn btn-large btn-floating col">+</button>
-			</form>
-        </div>
-        <div class="todo-list">
-            <ul class="collection">
-                <% todoList.forEach((todo) => { %>
-                <li class="collection-item" id="<%= todo.id %>" >
-                    <label class="row">
-                        <input type="checkbox" class="col s1 l1 filled-in" onclick="toggleTodo(event)"
-                        <% if (todo.completed) { %>
-                             checked="checked"
-                        <% } %>
-                        >
-                        <span class="col s8 l9
+<div class="center head white-text" style="height:25%">
+    <% if(userName) { %><h1><%= userName %>'s Todo List</h1><% } %>
+</div>
+<div class="add-todo row white-text">
+    <form action="" autocomplete="off">
+        <input type="text" id="new-todo" name="new-todo" class="col s10 l11 white-text" style="font-size: large;"
+            placeholder="Add todo" />
+        <button id="add-btn" style="font-size:25px;"
+            class="blue darken-3 waves-effect waves-light btn btn-large btn-floating col">+</button>
+    </form>
+</div>
+<div class="todo-list">
+    <ul class="collection">
+        <% todoList.forEach((todo) => { %>
+        <li class="collection-item" id="<%= todo.id %>">
+            <label class="row">
+                <input type="checkbox" class="col s1 l1 filled-in" onclick="toggleTodo(event)"
+                    <% if (todo.completed) { %> checked="checked" <% } %>>
+                <span class="col s8 l9
                         <% if(todo.completed) { %>
                             completed
                             grey-text
                         <% } else { %>
                             black-text
                         <% } %>
-                        "
-                        ><%= todo.text %></span>
-                        <span class="col s3 l2"><%= todo.timestamp %></span>
-                        <button class="del-btn btn btn-small btn-floating red right" type="submit" onclick="delTodo(event)">x</button>
-                    </label>
-                </li>
-                <% }); %>
-            </ul>
-        </div>
-    </div>
-    </div>
+                        "><%= todo.text %></span>
+                <span class="col s3 l2"><%= todo.timestamp %></span>
+                <button class="del-btn btn btn-small btn-floating red right" type="submit"
+                    onclick="delTodo(event)">x</button>
+            </label>
+        </li>
+        <% }); %>
+    </ul>
+</div>
+</div>
 
-    <script type="text/javascript" src="todoList.js"></script>
 
-</body>
-
-</html>
+<script type="text/javascript" src="todoList.js"></script>

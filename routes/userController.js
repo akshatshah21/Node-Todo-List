@@ -75,14 +75,20 @@ router.get('/login', (req, res) => {
 });
 
 
-passport.use(new LocalStrategy(
+passport.use(new LocalStrategy({usernameField: 'email'},
     function(email, password, done) {
+		console.log('checking...');
         User.getUserByEmail(email, (err, user) => {
-            if(err) console.log(err);
+            if(err) {
+				console.log(err);
+				return done(err);
+			}
             else if(!user) {
+				console.log('No such user');
                 return done(null, false, {message:'Unknown user'});
             }
             else {
+				console.log('User found')
                 User.comparePassword(password, user.password, (err, isMatch) => {
                     if(err) console.log(err);
                     else if(isMatch) {
@@ -98,6 +104,18 @@ passport.use(new LocalStrategy(
         });
     }));
 
+passport.serializeUser(function(user, done) {
+	console.log('Here.');
+  	done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  User.getUserById(id, function(err, user) {
+		console.log('Here.');
+		done(err, user);
+  });
+});
+
 router.post('/login',
     passport.authenticate('local', {
         successRedirect: '/todo',
@@ -107,6 +125,7 @@ router.post('/login',
     (req, res) => {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
+		console.log('Here?');
         res.redirect('/todo');
 });
 

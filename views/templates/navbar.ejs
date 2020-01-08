@@ -1,0 +1,22 @@
+<nav>
+	<div class="nav-wrapper">
+		<a href="#" class="brand-logo">Todo</a>
+		<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+		<ul class="right hide-on-med-and-down">
+			<li><a href="#">One</a></li>
+			<li><a href="#">Two</a></li>
+			<% if(typeof userName != 'undefined') { %>
+				<li><a href="#"><%= userName %></a></li>
+			<% } %>
+
+		</ul>
+	</div>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+	<li>One</li>
+	<li>Two</li>
+	<li>Three</li>
+</ul>
+
+<script src="/navbar.js"></script>
