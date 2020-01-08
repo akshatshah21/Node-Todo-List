@@ -35,3 +35,19 @@ module.exports.hashPassword = (newUser, callback) => {
         })
     })
 };
+
+module.exports.getUserByEmail = (email, callback) => {
+    User.findOne({email:email}, callback);  
+};
+
+module.exports.checkPassword = (password, hash, callback) => {
+    bcrypt.compare(password, hash, (err, res) => {
+        if(err) console.log(err);
+        else if(!res) {
+            console.log('Invalid pwd');
+        }
+        else {
+            console.log('Valid');
+        }
+    });
+};

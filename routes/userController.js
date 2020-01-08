@@ -1,5 +1,8 @@
 const express = require('express');
 const User = require('../models/user');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 let router = express.Router();
 
 
@@ -71,8 +74,40 @@ router.get('/login', (req, res) => {
 	res.render('login');
 });
 
-router.post('/login', (req, res) => {
-	console.log('Login Request:')
-	console.log(req.body)
+
+passport.use(new LocalStrategy(
+    function(email, password, done) {
+        User.getUserByEmail(email, (err, user) => {
+            if(err) console.log(err);
+            else if(!user) {
+                return done(null, false, {message:'Unknown user'});
+            }
+            else {
+                User.comparePassword(password, user.password, (err, isMatch) => {
+                    if(err) console.log(err);
+                    else if(isMatch) {
+                        console.log('Match!');
+                        return done(null, user);
+                    }
+                    else  {
+                        console.log('Invalid password');
+                        return done(null, false, {message:'Invalid password'});
+                    }
+                });
+            }
+        });
+    }));
+
+router.post('/login',
+    passport.authenticate('local', {
+        successRedirect: '/todo',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    }),
+    (req, res) => {
+        // If this function gets called, authentication was successful.
+        // `req.user` contains the authenticated user.
+        res.redirect('/todo');
 });
+
 module.exports = router;
