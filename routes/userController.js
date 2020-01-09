@@ -50,7 +50,7 @@ router.post('/register', validationChecks, (req, res) => {
 			newUser.save((err) => {
 				if(err)	console.log(err);
 				else {
-					console.log('User registered');
+                    console.log('User registered');
 					req.flash('success_msg', 'You have been successfully registered');
 					res.redirect('login');
 				}
@@ -125,8 +125,9 @@ router.post('/login',
     (req, res) => {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
-		console.log('Here?');
-        res.redirect('/todo');
+        // console.log('Here?');
+        req.flash('success_msg', 'Login successful');
 });
+
 
 module.exports = router;

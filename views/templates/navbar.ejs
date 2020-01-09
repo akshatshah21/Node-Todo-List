@@ -1,5 +1,5 @@
 <nav>
-	<div class="nav-wrapper">
+	<div class="nav-wrapper light-blue darken-3">
 		<a href="#" class="brand-logo">Todo</a>
 		<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 		<ul class="right hide-on-med-and-down">
@@ -7,7 +7,8 @@
 			<li><a href="#">Two</a></li>
 			<% if(typeof userName != 'undefined') { %>
 				<li><a href="#"><%= userName %></a></li>
-			<% } %>
+            <% } %>
+            <li><a href="/logout">Logout</a></li>
 
 		</ul>
 	</div>
@@ -15,8 +16,11 @@
 
 <ul class="sidenav" id="mobile-demo">
 	<li>One</li>
-	<li>Two</li>
-	<li>Three</li>
+    <li>Two</li>
+    <% if(typeof userName != 'undefined') { %>
+        <li><a href="#"><%= userName %></a></li>
+    <% } %>
+	<li><a href="/logout">Logout</a></li>
 </ul>
 
 <script src="/navbar.js"></script>

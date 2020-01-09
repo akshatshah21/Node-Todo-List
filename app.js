@@ -1,14 +1,9 @@
 const express = require('express');
-const ejs = require('ejs');
-// const bodyParser = require('body-parser');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const mongoose = require('mongoose');
 const expressLayouts = require('express-layouts');
 
 const todoRoutes = require('./routes/todoController');
@@ -62,15 +57,18 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
-
-
 // Routes
 // todoController(app);
 app.use('/todo', todoRoutes);
 // userController(app);
 app.use('/users', userRoutes);
+
+app.get('/logout', function (req, res) {
+    console.log('Log out');
+    req.logout();
+    req.flash('Logged out');
+    res.redirect('/users/register');
+});
 
 app.listen(5000, () => {
     console.log(`Listening on port 5000`);

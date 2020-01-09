@@ -20,8 +20,24 @@
             </form>
             <div class="col s6 black-text">
                 <h5>Other login options:</h5>
-
             </div>
         </div>
+        <% if(typeof success_msg != 'undefined') { %>
+        <div class="red-text">
+            <p><%= success_msg %></p>
+        </div>
+        <% } %>
+        <!-- <% if(typeof error_msg != 'undefined') { %>
+        <div class="red-text">
+            <p><%= error_msg %></p>
+        </div>
+        <% } %> -->
+
+        <% if(typeof error != 'undefined') { %>
+        <div class="red-text">
+            <p><%= error %></p>
+        </div>
+        <% } %>
+        <br>
     </div>
 </div>
