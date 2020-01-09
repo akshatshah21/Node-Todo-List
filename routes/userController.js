@@ -7,7 +7,10 @@ let router = express.Router();
 
 
 router.get('/register', (req, res) => {
-	res.render('register');
+    if(!req.user)
+        res.render('register');
+    else
+        res.send(`You are already logged in as ${req.user.first_name + ' ' + req.user.last_name}!`);
 });
 
 const { check, validationResult } = require('express-validator');
@@ -71,7 +74,10 @@ router.post('/register', validationChecks, (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-	res.render('login');
+    if(!req.user)
+        res.render('login');
+    else
+        res.send(`You are already logged in as ${req.user.first_name + ' ' + req.user.last_name}!`);
 });
 
 
@@ -120,13 +126,17 @@ router.post('/login',
     passport.authenticate('local', {
         successRedirect: '/todo',
         failureRedirect: '/users/login',
-        failureFlash: true
+        failureFlash: true,
+        successFlash: 'Welcome!'
     }),
     (req, res) => {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
         // console.log('Here?');
-        req.flash('success_msg', 'Login successful');
+        res.flash('success_msg', 'Login successful');
+        req.session.user = req.user;
+        res.redirect('/todo');      
+
 });
 
 

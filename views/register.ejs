@@ -1,9 +1,11 @@
+<br>
 <div class="container white">
-    <h1 class="black-text">Register</h1>
+    <br>
+    <h3 class="black-text center">Register</h3>
     <div class="container">
         <div class="row">
             <form autocomplete="off" class="col s6" action="/users/register" method="POST">
-                <div class="row">
+                <div class="row" style="margin-bottom: 0;">
                     <div class="input-field col s6">
                         <input name="first_name" type="text" required <% if(typeof prevInput != 'undefined') { %>
                             value="<%= prevInput.first_name %>" <% } %>>
@@ -15,20 +17,20 @@
                         <label for="last_name">Last Name</label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="input-field col s12">
+    
+                    <div class="input-field"  style="margin-top:0;">
                         <input name="email" type="email" class="validate" required
                             <% if(typeof prevInput != 'undefined') { %> value="<%= prevInput.email %>" <% } %>>
                         <label for="email">Email</label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
+                
+                
+                    <div class="input-field">
                         <input name="password" type="password" class="validate" required
                             <% if(typeof prevInput != 'undefined') { %> value="<%= prevInput.password %>" <% } %>>
                         <label for="password">Password</label>
                     </div>
-                </div>
+                
                 <div class="row">
                     <div class="input-field col s12">
                         <input name="password2" type="password" class="validate" required

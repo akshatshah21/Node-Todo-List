@@ -11,8 +11,8 @@
 </head>
 
 <body class="light-blue lighten-1">
-    <% if(typeof userName != 'undefined') { %>
-    <%- include('templates/navbar', {userName:userName}); %>
+    <% if(typeof user != 'undefined') { %>
+    <%- include('templates/navbar', {userName:user.first_name}); %>
     <% } else { %>
     <%- include('templates/navbar'); %>
     <% } %>
@@ -21,7 +21,21 @@
         <%- body %>
     </div>
 
-    
+    <!-- <% if(typeof success_msg != 'undefined') { %>
+        <div class="red-text">
+            <p><%= success_msg %></p>
+        </div>
+        <% } %>
+        <% if(typeof error_msg != 'undefined') { %>
+        <div class="red-text">
+            <p><%= error_msg %></p>
+        </div>
+        <% } %>
+        <% if(typeof error != 'undefined') { %>
+        <div class="red-text">
+            <p><%= error %></p>
+        </div>
+        <% } %> -->
 </body>
 
 </html>

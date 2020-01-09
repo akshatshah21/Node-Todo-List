@@ -25,12 +25,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
-// Express Session
+// Express Session. Note: Session data is stored on the server side only
 app.use(session({
     secret:'secret',
     saveUninitialized: true,
     resave: true
 }));
+
+/* app.use(function(req, res, next) {
+  res.locals.user = req.session.user;
+  next();
+}); */
 
 // Passport
 app.use(passport.initialize());
@@ -66,8 +71,8 @@ app.use('/users', userRoutes);
 app.get('/logout', function (req, res) {
     console.log('Log out');
     req.logout();
-    req.flash('Logged out');
-    res.redirect('/users/register');
+    req.flash('success_msg', 'Logged out');
+    res.redirect('/users/login');
 });
 
 app.listen(5000, () => {

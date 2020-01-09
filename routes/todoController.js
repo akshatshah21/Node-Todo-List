@@ -1,5 +1,6 @@
 const express = require('express');
 const uuid = require('uuid');
+const User = require('../models/user');
 let router = express.Router();
 
 
@@ -14,9 +15,17 @@ router.get('/', (req, res) => {
 	Todo.find({}, (err, data) => {
 		if(err)	console.log(err);
 		else {
+            if(req.user) {
+                /* User.getUserData(req.user, (todoList) => {
+                    res.render('todoList', {user: req.user, todoList: todoList}); // todoList: getUserData(user)
+                }); */
+                res.render('todoList', {user: req.user, todoList: data});
+            }
+            else {
+                res.redirect('/users/login');
+            }
 			req.flash('success_msg', 'Success!');
-			res.render('todoList', {userName: 'Akshat', todoList: data});
-			// Todo: Add user reg system
+			
 		}
 	} )
 });

@@ -6,9 +6,10 @@
 			<li><a href="#">One</a></li>
 			<li><a href="#">Two</a></li>
 			<% if(typeof userName != 'undefined') { %>
-				<li><a href="#"><%= userName %></a></li>
+                <li><a href="#"><%= userName %></a></li>
+                <li><a href="/logout">Logout</a></li>
             <% } %>
-            <li><a href="/logout">Logout</a></li>
+            
 
 		</ul>
 	</div>
@@ -19,8 +20,7 @@
     <li>Two</li>
     <% if(typeof userName != 'undefined') { %>
         <li><a href="#"><%= userName %></a></li>
+        <li><a href="/logout">Logout</a></li>
     <% } %>
-	<li><a href="/logout">Logout</a></li>
+	
 </ul>
-
-<script src="/navbar.js"></script>

@@ -1,5 +1,7 @@
+<br>
 <div class="container white">
-    <h1 class="black-text">Login</h1>
+    <br>
+    <h3 class="black-text center">Login</h3>
     <div class="container">
         <div class="row">
             <form autocomplete="off" action="/users/login" method="POST" class="col s6">
@@ -27,12 +29,11 @@
             <p><%= success_msg %></p>
         </div>
         <% } %>
-        <!-- <% if(typeof error_msg != 'undefined') { %>
+        <% if(typeof error_msg != 'undefined') { %>
         <div class="red-text">
             <p><%= error_msg %></p>
         </div>
-        <% } %> -->
-
+        <% } %>
         <% if(typeof error != 'undefined') { %>
         <div class="red-text">
             <p><%= error %></p>
