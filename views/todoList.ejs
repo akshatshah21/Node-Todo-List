@@ -18,7 +18,7 @@
 <div class="todo-list">
     <ul class="collection">
         <% todoList.forEach((todo) => { %>
-        <li class="collection-item" id="<%= todo.id %>">
+        <li class="collection-item" id="<%= todo._id %>">
             <label class="row">
                 <input type="checkbox" class="col s1 l1 filled-in" onclick="toggleTodo(event)"
                     <% if (todo.completed) { %> checked="checked" <% } %>>

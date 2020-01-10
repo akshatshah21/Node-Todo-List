@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const mongodbURI = require('../config/mongodbURI');
-/* const Schema = mongoose.Schema;
-const Todo = require('./todo');
-const TodoSchema = mongoose.model('Todo').schema; */
 
 // Connect to database: (Add your URI string to ../config/mongodbURI.js)
 mongoose.connect(mongodbURI, {useNewUrlParser:true, useUnifiedTopology: true})
@@ -27,11 +24,7 @@ let userSchema = new mongoose.Schema({
     password: {
         type:String, 
         required: true
-    }/* ,
-    todoList: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Todo'
-    }] */
+    }
 });
 
 let User = mongoose.model('User', userSchema);
@@ -64,8 +57,16 @@ module.exports.comparePassword = (password, hash, callback) => {
     });
 };
 
-/* module.exports.getUserData = (user, callback) => {
-    User.getUserById(user.id, (userData) => {
-        callback(userData.todoList);
+const Todo = require('./todo'); // This is placed here as Todo schema requires User schema to be registered first
+
+module.exports.getUserTodos = (user, callback) => {
+    Todo.find({author: user._id}, (err, data) => {
+        if(err) {
+            console.log(err);
+            callback(err);
+        }
+        else {
+            callback(null, data);
+        }
     })
-}; */
+};

@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const mongodbURI = require('../config/mongodbURI');
+const Schema = mongoose.Schema;
+// const User = require('./user');
+const UserSchema = mongoose.model('User').schema;
 
  // Connect to database: (Add your URI string to ../config/mongodbURI.js)
 mongoose.connect(mongodbURI, {useNewUrlParser:true, useUnifiedTopology: true})
@@ -7,9 +10,6 @@ mongoose.connect(mongodbURI, {useNewUrlParser:true, useUnifiedTopology: true})
     .catch((err) => console.log(err));
 
 let todoSchema = new mongoose.Schema({
-	id: {
-        type: String
-    },
 	text: {
         type: String
     },
@@ -18,6 +18,12 @@ let todoSchema = new mongoose.Schema({
     },
 	completed: {
         type: Boolean
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+
     }
 });
 let Todo = new mongoose.model('Todo', todoSchema);

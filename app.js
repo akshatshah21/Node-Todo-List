@@ -5,9 +5,9 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const expressLayouts = require('express-layouts');
-
-const todoRoutes = require('./routes/todoController');
 const userRoutes = require('./routes/userController');
+const todoRoutes = require('./routes/todoController');
+
 
 // Initialize app
 const app = express()
@@ -32,27 +32,13 @@ app.use(session({
     resave: true
 }));
 
-/* app.use(function(req, res, next) {
-  res.locals.user = req.session.user;
-  next();
-}); */
-
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Express Validator
-// ???
 
 // connect-flash
-// app.use(flash());
-
-
 app.use(flash());
-/* app.use(function (req, res, next) {
-  res.locals.messages = require('express-messages')(req, res);
-  next();
-}); */
 
 
 app.use((req, res, next) => {
@@ -63,13 +49,12 @@ app.use((req, res, next) => {
 });
 
 // Routes
-// todoController(app);
-app.use('/todo', todoRoutes);
-// userController(app);
 app.use('/users', userRoutes);
+app.use('/todo', todoRoutes);
+
 
 app.get('/logout', function (req, res) {
-    console.log('Log out');
+    // console.log('Log out');
     req.logout();
     req.flash('success_msg', 'Logged out');
     res.redirect('/users/login');
